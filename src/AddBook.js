@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'; 
-import { ListGroup, Card, Button, Form } from 'react-bootstrap'; 
-import { GiBlackBook } from "react-icons/gi"; 
+import { Button, Form } from 'react-bootstrap'; 
+
 import API from "./API"; 
 
 const AddBook = ({ onAdd }) => {
     const [title, setTitle] = useState(""); 
     const [genre, setGenre] = useState(""); 
-    const [datePublished, setDatePublished] = useState(""); 
+    const [date_published, setDatePublished] = useState(""); 
     const [isbn, setIsbn] = useState(""); 
     const [publisher, setPublisher] = useState(""); 
     const [format, setFormat] = useState(""); 
@@ -36,7 +36,7 @@ const AddBook = ({ onAdd }) => {
 
     const onSubmit = (e) => {
         e.preventDefault(); 
-        let item = { title, genre, datePublished, isbn, publisher, format, edition }; 
+        let item = { title, genre, date_published, isbn, publisher, format, edition }; 
         API.post("/", item).then(() => refreshBooks());
     }; 
 
@@ -53,7 +53,7 @@ const AddBook = ({ onAdd }) => {
         let item = books.filter((book) => book.id === id)[0]; 
         setTitle(item.title);
         setGenre(item.genre);
-        setDatePublished(item.datePublished);
+        setDatePublished(item.date_published);
         setIsbn(item.isbn);
         setPublisher(item.publisher);
         setFormat(item.format);
@@ -68,7 +68,7 @@ const AddBook = ({ onAdd }) => {
                     <h3 className="float-left">Add a New Book</h3>
                     <Form onSubmit={onSubmit} className="mt-4">
                         <Form.Group className="mb-3" controlId="formTitle">
-                            <Form.Label>{bookId} Name</Form.Label>
+                            <Form.Label>{bookId} Title</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 placeholder="Enter Book Title"
@@ -92,7 +92,7 @@ const AddBook = ({ onAdd }) => {
                             <Form.Control 
                                 type="date" 
                                 placeholder="Enter Date Published"
-                                value={datePublished} 
+                                value={date_published} 
                                 onChange={(e) => setDatePublished(e.target.value)}
                             />
                         </Form.Group>
@@ -160,11 +160,48 @@ const AddBook = ({ onAdd }) => {
                 <div className="col-md-8 m">
                     <table class="table">
                         <thead>
-                            
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Book Title</th>
+                                <th scope="col">Genre</th>
+                                <th scope="col">Date Published</th>
+                                <th scope="col">ISBN</th>
+                                <th scope="col">Publisher</th>
+                                <th scope="col">Format</th>
+                                <th scope="col">Edition</th>
+                            </tr>
                         </thead>
+                        <tbody>
+                            {books.map((book, index) => {
+                                return (
+                                    <tr key="">
+                                        <th scope="row">{book.id}</th>
+                                        <td>{book.title}</td>
+                                        <td>{book.genre}</td>
+                                        <td>{book.date_published}</td>
+                                        <td>{book.isbn}</td>
+                                        <td>{book.publisher}</td>
+                                        <td>{book.format}</td>
+                                        <td>{book.edition}</td>
+                                        <td>
+                                            <i
+                                                className="fa fa-pencil-square text-primary d-inline"
+                                                onClick={() => selectBook(book.id)}
+                                            ></i>
+                                            <i
+                                                className="fa fa-trash-o text-danger d-inline mx-3"
+                                                onClick={() => onDelete(book.id)}
+                                            ></i>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
+
+export default AddBook;
