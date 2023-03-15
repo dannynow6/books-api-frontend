@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'; 
 import { ListGroup, Card, Button, Form } from 'react-bootstrap'; 
+import { GiBlackBook } from "react-icons/gi"; 
 import API from "./API"; 
 
 const AddBook = ({ onAdd }) => {
@@ -65,7 +66,103 @@ const AddBook = ({ onAdd }) => {
             <div className="row">
                 <div className="col-md-4">
                     <h3 className="float-left">Add a New Book</h3>
-                    
+                    <Form onSubmit={onSubmit} className="mt-4">
+                        <Form.Group className="mb-3" controlId="formTitle">
+                            <Form.Label>{bookId} Name</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Enter Book Title"
+                                value={title} 
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formGenre">
+                            <Form.Label>Genre</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Enter Genre"
+                                value={genre} 
+                                onChange={(e) => setGenre(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formDatePublished">
+                            <Form.Label>Date Published</Form.Label>
+                            <Form.Control 
+                                type="date" 
+                                placeholder="Enter Date Published"
+                                value={datePublished} 
+                                onChange={(e) => setDatePublished(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formIsbn">
+                            <Form.Label>ISBN</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Enter ISBN"
+                                value={isbn} 
+                                onChange={(e) => setIsbn(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formPublisher">
+                            <Form.Label>Publisher</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Enter Publisher"
+                                value={publisher} 
+                                onChange={(e) => setPublisher(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formFormat">
+                            <Form.Label>Book Format</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Book Format"
+                                value={format} 
+                                onChange={(e) => setFormat(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formEdition">
+                            <Form.Label>Edition</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Edition"
+                                value={edition} 
+                                onChange={(e) => setEdition(e.target.value)}
+                            />
+                        </Form.Group>
+
+                        <div className="float-right">
+                            <Button 
+                                variant="primary"
+                                type="submit"
+                                onClick={onSubmit} 
+                                className="mx-2"
+                            >
+                                Save
+                            </Button>
+                            <Button 
+                                variant="primary"
+                                type="button"
+                                onClick={() => onUpdate(bookId)} 
+                                className="mx-2"
+                            >
+                                Update
+                            </Button>
+                        </div>
+                    </Form>
+                </div>
+                <div className="col-md-8 m">
+                    <table class="table">
+                        <thead>
+                            
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
